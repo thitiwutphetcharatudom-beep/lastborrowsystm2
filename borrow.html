@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ยืม-คืนอุปกรณ์</title>
+  <link rel="stylesheet" href="modern-styles.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1><i class="fa-solid fa-toolbox"></i> เมนู</h1>
+      <a href="index.html"><i class="fa-solid fa-home"></i> หน้าหลัก</a>
+      <a href="borrow.html"><i class="fa-solid fa-handshake"></i> ยืม/คืน</a>
+      <a href="status.html"><i class="fa-solid fa-list-check"></i> เช็คสถานะ</a>
+      <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</button>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <h2><i class="fa-solid fa-hand-holding"></i> แบบฟอร์มยืม/คืน</h2>
+      <form id="borrow-return-form">
+        <label for="firstname-input"><i class="fa-solid fa-user"></i> ชื่อ</label>
+        <input type="text" id="firstname-input" required />
+
+        <label for="lastname-input"><i class="fa-solid fa-user-tag"></i> นามสกุล</label>
+        <input type="text" id="lastname-input" required />
+
+        <label for="department-input"><i class="fa-solid fa-building"></i> แผนก</label>
+        <select id="department-input" required>
+          <option value="">-- เลือกแผนก --</option>
+          <option value="ฝ่ายผลิต">ฝ่ายผลิต</option>
+          <option value="ฝ่ายซ่อมบำรุง">ฝ่ายซ่อมบำรุง</option>
+          <option value="ฝ่ายคลัง">ฝ่ายคลัง</option>
+          <option value="ฝ่ายบุคคล">ฝ่ายบุคคล</option>
+        </select>
+
+        <label for="device-select"><i class="fa-solid fa-screwdriver-wrench"></i> อุปกรณ์</label>
+        <select id="device-select"></select>
+
+        <label for="action-select"><i class="fa-solid fa-exchange-alt"></i> การดำเนินการ</label>
+        <select id="action-select" required>
+          <option value="borrow">ยืม</option>
+          <option value="return">คืน</option>
+        </select>
+
+        <label for="quantity-input"><i class="fa-solid fa-sort-numeric-up"></i> จำนวน</label>
+        <input type="number" id="quantity-input" required min="1" />
+
+        <button type="submit"><i class="fa-solid fa-paper-plane"></i> บันทึก</button>
+        <p id="message"></p>
+      </form>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("vt7eB6VsRhy5IW_Cz");
+    })();
+  </script>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

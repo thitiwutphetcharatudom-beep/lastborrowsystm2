@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>สถานะการยืมอุปกรณ์</title>
+  <link rel="stylesheet" href="modern-styles.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1><i class="fa-solid fa-toolbox"></i> เมนู</h1>
+      <a href="index.html"><i class="fa-solid fa-home"></i> หน้าหลัก</a>
+      <a href="borrow.html"><i class="fa-solid fa-handshake"></i> ยืม/คืน</a>
+      <a href="status.html"><i class="fa-solid fa-list-check"></i> เช็คสถานะ</a>
+      <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> ออกจากระบบ</button>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <h2><i class="fa-solid fa-clipboard-list"></i> สถานะการยืมอุปกรณ์</h2>
+      <table id="status-table">
+        <thead>
+          <tr>
+            <th><i class="fa-solid fa-screwdriver-wrench"></i> ชื่ออุปกรณ์</th>
+            <th><i class="fa-solid fa-sort-numeric-up"></i> จำนวน</th>
+            <th><i class="fa-solid fa-user"></i> ชื่อ</th>
+            <th><i class="fa-solid fa-user-tag"></i> นามสกุล</th>
+            <th><i class="fa-solid fa-building"></i> แผนก</th>
+            <th><i class="fa-solid fa-calendar-day"></i> วันที่ยืม</th>
+            <th><i class="fa-solid fa-hourglass-half"></i> สถานะ</th>
+            <th><i class="fa-solid fa-coins"></i> ค่าปรับ</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("vt7eB6VsRhy5IW_Cz");
+    })();
+  </script>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+    function logout() {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

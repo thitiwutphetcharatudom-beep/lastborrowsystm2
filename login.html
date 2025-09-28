@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>เข้าสู่ระบบ</title>
+  <link rel="stylesheet" href="modern-styles.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1><i class="fa-solid fa-toolbox"></i> ระบบยืม-คืน</h1>
+      <p><i class="fa-solid fa-right-to-bracket"></i> กรุณาเข้าสู่ระบบ</p>
+    </aside>
+
+    <!-- Content -->
+    <main class="content">
+      <h2><i class="fa-solid fa-user-shield"></i> เข้าสู่ระบบแอดมิน</h2>
+      <form id="login-form">
+        <label for="password"><i class="fa-solid fa-lock"></i> รหัสผ่าน</label>
+        <input type="password" id="password" required />
+        <button type="submit"><i class="fa-solid fa-right-to-bracket"></i> เข้าสู่ระบบ</button>
+        <div id="login-message" style="color:red; margin-top:1rem;"></div>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    const ADMIN_PASSWORD = "1234"; // แก้รหัสได้ที่นี่
+    document.getElementById("login-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const password = document.getElementById("password").value;
+      const message = document.getElementById("login-message");
+
+      if (password === ADMIN_PASSWORD) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "index.html";
+      } else {
+        message.textContent = "รหัสผ่านไม่ถูกต้อง!";
+      }
+    });
+  </script>
+</body>
+</html>
