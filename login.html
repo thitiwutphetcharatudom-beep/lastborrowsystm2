@@ -5,18 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>เข้าสู่ระบบ</title>
   <link rel="stylesheet" href="modern-styles.css" />
-  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <!-- Sidebar -->
     <aside class="sidebar">
       <h1><i class="fa-solid fa-toolbox"></i> ระบบยืม-คืน</h1>
       <p><i class="fa-solid fa-right-to-bracket"></i> กรุณาเข้าสู่ระบบ</p>
     </aside>
 
-    <!-- Content -->
     <main class="content">
       <h2><i class="fa-solid fa-user-shield"></i> เข้าสู่ระบบแอดมิน</h2>
       <form id="login-form">
@@ -29,7 +26,7 @@
   </div>
 
   <script>
-    const ADMIN_PASSWORD = "1234"; // แก้รหัสได้ที่นี่
+    const ADMIN_PASSWORD = "1234";
     document.getElementById("login-form").addEventListener("submit", (e) => {
       e.preventDefault();
       const password = document.getElementById("password").value;

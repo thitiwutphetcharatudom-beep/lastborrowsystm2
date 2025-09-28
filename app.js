@@ -9,7 +9,7 @@ import {
   runTransaction
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-/* ------------------ SETUP FIREBASE ------------------ */
+// SETUP FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyBHFjQYNV3I972Z6iBjNV0rmwSaCRqRePw",
   authDomain: "borrowlocal-933e3.firebaseapp.com",
@@ -58,7 +58,7 @@ async function seedDevicesIfEmpty() {
   }
 }
 
-/* ------------------ Real-time listener ------------------ */
+// Real-time listener
 onSnapshot(devicesCol, (snapshot) => {
   const docs = snapshot.docs.map(s => ({ id: s.id, ...s.data() }));
   devices = normalizeDevicesArray(docs);
@@ -69,7 +69,7 @@ onSnapshot(devicesCol, (snapshot) => {
 
 seedDevicesIfEmpty().catch(err => console.warn("seed error:", err));
 
-/* ------------------ EMAIL FUNCTIONS ------------------ */
+// EMAIL FUNCTIONS
 function sendLateReturnEmail(deviceName, details) {
   emailjs.send("service_eswn7hl", "template_late_return", {
     device_name: deviceName,
@@ -89,7 +89,7 @@ function sendLowStockEmail(deviceName, remaining, threshold) {
   .catch(err => console.error("ส่งเมลสต็อกน้อยไม่สำเร็จ", err));
 }
 
-/* ------------------ UI Rendering ------------------ */
+// UI Rendering
 function renderDevices() {
   const tbody = document.querySelector('#device-table tbody');
   if (!tbody) return;
@@ -133,14 +133,14 @@ function renderStatus() {
         let statusText = "ยืมอยู่";
         let fine = 0;
         
-        // จำนวนวันที่เกินกำหนด (ถ้ามี)
+        // คำนวณจำนวนวันที่เกินกำหนด (เริ่มนับหลัง 7 วัน)
         const lateDays = diffDays > 7 ? diffDays - 7 : 0; 
         
         if (lateDays > 0) {
-          statusText = "เกินกำหนด (" + lateDays + " วัน)"; // 👈 แสดงจำนวนวัน *ที่เกินกำหนด*
-          fine = lateDays * 10; // 👈 คำนวณค่าปรับ 10 บาทต่อวัน (ถูกต้องตามโค้ดเดิม)
+          statusText = "เกินกำหนด (" + lateDays + " วัน)";
+          fine = lateDays * 10;
 
-          // 🔔 ส่งอีเมลแจ้งเตือนคืนช้า
+          // ส่งอีเมลแจ้งเตือนคืนช้า
           sendLateReturnEmail(device.name, `\nผู้ยืม: ${record.firstname} ${record.lastname} (${record.department})\nยืมวันที่: ${borrowDate.toLocaleDateString()}\nเกินกำหนด: ${lateDays} วัน`);
         }
         
@@ -161,7 +161,7 @@ function renderStatus() {
   });
 }
 
-/* ------------------ Borrow / Return ------------------ */
+// Borrow / Return
 async function handleBorrowReturn(e) {
   e.preventDefault();
   const deviceId = document.getElementById('device-select')?.value;
@@ -203,7 +203,7 @@ async function handleBorrowReturn(e) {
         records.push(newRecord);
         t.update(docRef, { borrowRecords: records, borrowed: borrowed + quantity });
 
-        // 🔔 เช็คสต็อกเหลือน้อย
+        // เช็คสต็อกเหลือน้อย
         const remaining = total - (borrowed + quantity);
         if (remaining <= 5) {
           sendLowStockEmail(data.name, remaining, 5);
@@ -243,7 +243,7 @@ async function handleBorrowReturn(e) {
   }
 }
 
-/* ------------------ Hook form submit ------------------ */
+// Hook form submit
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('borrow-return-form');
   if (form) form.addEventListener('submit', handleBorrowReturn);
